@@ -4,8 +4,6 @@ import HelloWorldButton from "./components/hello-world-button/hello-world-button
 
 import addImage from "./add-image.js";
 
-import React from "react";
-
 const heading = new Heading();
 heading.render('hello world');
 const helloWorldButton = new HelloWorldButton();

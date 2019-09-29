@@ -57,16 +57,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // WHICH WILL REQUIRE "WEBPACK" COMMAND IN PACKAGE.JSON
 
 module.exports = {
-	entry: {
-		'hello-world': './src/index.js',
-		'amiibo': './src/index_two.js'
-		//you need to use new url addresses for localhost servers with multiple html pages
-		// 1. http://localhost:9000/hello-world.html 
-		// ** name of 'hello-world.html' from new HtmlWebpackPlugin()
-		// 2. http://localhost:900/amiibo.html
-	},
+	entry: './src/index.js',
 	output: {
-		filename: '[name].bundle.js',
+		filename: 'bundle.js',
 		path: path.resolve(__dirname, './dist'),
 		publicPath: ''	
 		// publicPath: 'dist/'	
@@ -141,26 +134,12 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			//configure options for the webpack generated html file here
-			filename: 'hello-world.html',
-			chunks: ['hello-world'],
 			title: 'Hello world',
 			template: 'src/index.hbs',
 			// filename: 'subfolder/custom_filename.html',
 			// the generated html file will be within the 'dist' folder and within the 'subfolder' folder
 			meta: {
 				description: 'Some description'
-			}
-		}),
-		new HtmlWebpackPlugin({
-			//configure options for the webpack generated html file here
-			filename: 'amiibo.html',
-			chunks: ['amiibo'],
-			title: 'Amiibo',
-			template: 'src/index.hbs',
-			// filename: 'subfolder/custom_filename.html',
-			// the generated html file will be within the 'dist' folder and within the 'subfolder' folder
-			meta: {
-				description: 'Some description 2'
 			}
 		})
 	]

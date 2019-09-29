@@ -48,36 +48,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // https://github.com/jantimon/html-webpack-plugin
 
 module.exports = {
-	// entry: './src/index.js',
-	// BELOW IS USED FOR MULTIPLE ENTRY POINTS
-	entry: {
-		'hello-world': './src/index.js',
-		'amiibo': './src/index_two.js'
-	},
+	entry: './src/index.js',
 	output: {
-		// filename: 'bundle.[contenthash].js',
-		filename: '[name].[contenthash].js',
-		// name grabs name of file
+		filename: 'bundle.[contenthash].js',
 		path: path.resolve(__dirname, './dist'),
-		publicPath: ''	
+		publicPath: '/static/'	
 		// publicPath: 'dist/'	
-		// *NOTE: dist/ is not necessary if the index.html file is built using HtmlWebpackPlugin and is also inside the dist folder as well
+		// *NOTE: 'dist/' is not necessary if the index.html file is built using HtmlWebpackPlugin and is also inside the dist folder as well
+		// *NOTE: '/static/' is not necessary if we are not using express which will use the 'static' route to resolve JS and CSS files with express.static
 	},
 	mode: 'production', //'none' 'development' or 'production'
 	//sets process.env.NODE_ENV on DefinePlugin to value specified 
 	// it enables different sets of plugins for each mode (sourcemaps is enabled in development)
 	// you can trace errors back to its proper file source in mode 'development'
-	optimization: {
-		//the default splitting will only occur when the shared dependencies exceed 70 kilobytes like lodash
-		splitChunks: {
-			chunks: "all",
-			minSize: 10000
-			//the splitting will occur when shared dependencies exceed 10000 bytes
-		}
-	},
-	// this is to handle Code Splitting
-	// we do not want to load the same Javascript or CSS Code multiple 
-	// times for each page if they are shared across multiple pages
 	module: {
 		rules: [
 			{
@@ -119,8 +102,7 @@ module.exports = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			// filename: 'styles.[contenthash].css'
-			filename: '[name].[contenthash].css'
+			filename: 'styles.[contenthash].css'
 		}),
 		new CleanWebpackPlugin({
 			cleanOnceBeforeBuildPatterns: [
@@ -130,38 +112,12 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			//configure options for the webpack generated html file here
-			filename: 'hello-world.html',
-			chunks: ['hello-world', 'amiibo~hello-world'],
-			// the chunk property here notes which resources are going to be linked with this generated HTML page
-			// the properties come form the values that are set in the entry setting of this webpack config at the start
-			// You need 1. the index_two.js file that gets compiled from entry 'amiibo'
-			// You need 2. the shared 'vendors~amiibo~hello-world' javascript file generated from creating chunk in the 'optimization' setting
-			// which are used in other pages and designed for code splitting (browser caching)
-			// ** 2. You need to match the file name here to whatever was created in the dist folder for the shared chunk
 			title: 'Hello world',
 			template: 'src/index.hbs',
 			// filename: 'subfolder/custom_filename.html',
 			// the generated html file will be within the 'dist' folder and within the 'subfolder' folder
 			meta: {
 				description: 'Some description'
-			}
-		}),
-		new HtmlWebpackPlugin({
-			//configure options for the webpack generated html file here
-			filename: 'amiibo.html',
-			title: 'Amiibo',
-			chunks: ['amiibo', 'amiibo~hello-world'], 
-			// the chunk property here notes which resources are going to be linked with this generated HTML page
-			// the properties come form the values that are set in the entry setting of this webpack config at the start
-			// You need 1. the index_two.js file that gets compiled from entry 'amiibo'
-			// You need 2. the shared 'vendors~amiibo~hello-world' javascript file generated from creating chunk in the 'optimization' setting
-			// which are used in other pages and designed for code splitting (browser caching)
-			// ** 2. You need to match the file name here to whatever was created in the dist folder for the shared chunk
-			template: 'src/index.hbs',
-			// filename: 'subfolder/custom_filename.html',
-			// the generated html file will be within the 'dist' folder and within the 'subfolder' folder
-			meta: {
-				description: 'Some description 2'
 			}
 		})
 	]

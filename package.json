@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"build--single": "webpack --config webpack.production.config.js",
-		"build--multiple": "webpack --config webpack.production.multipage.config.js",
-		"dev": "webpack-dev-server --config webpack.dev.config.js --hot",
-		"start--single": "node src/server.singlepage.js",
-		"start--multiple": "node src/server.multiplepage.js"
+    "build--single": "webpack --config webpack.production.config.js",
+    "build--multiple": "webpack --config webpack.production.multipage.config.js",
+    "dev": "webpack-dev-server --config webpack.dev.config.js --hot",
+    "start--single": "node src/server.singlepage.js",
+    "start--multiple": "node src/server.multiplepage.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "handlebars": "^4.3.4",
-    "react": "^16.10.1"
+    "handlebars": "^4.3.4"
   }
 }

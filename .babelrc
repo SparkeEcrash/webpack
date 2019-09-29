@@ -1,0 +1,7 @@
+// babel-preset-env: es6 to es5
+
+// {
+// 	"presets": ["@babel/preset-env"]
+// }
+
+{}

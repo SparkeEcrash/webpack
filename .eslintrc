@@ -1,0 +1,24 @@
+{
+	"extends": "eslint:recommended",
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"env": {
+		"node": true,
+		"browser": true
+	},
+	"rules": {
+		"no-console": 0
+	}
+}
+
+//the "parser" property with "babel-eslint" (npm package) enables also to use assign properties to Classes in JS 
+
+//the parserOptions property with ecmaVersion and sourceType "module" prevents errors regarding importing and exporting
+
+//"env" property with "node" set to "true" removes errors regarding any webpack configuration JS files
+// it also removes errors associated with using "process.env.NODE_ENV" variables within our JS files
+
+//"env" property with "browser" removes errors using the "document" browser variable within our JS files

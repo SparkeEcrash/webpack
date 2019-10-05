@@ -96,7 +96,20 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				use: [
-					MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+					MiniCssExtractPlugin.loader, 
+					'css-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: function() {
+								return [
+									require('precss'),
+									require('autoprefixer')
+								]
+							}
+						}
+					},
+					'sass-loader'
 				]
 			},
 			{
@@ -121,7 +134,8 @@ module.exports = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			// filename: 'styles.[contenthash].css'
-			filename: '[name].[contenthash].css'
+			filename: '[name].[contenthash].css',
+			chunks: ['amiibo', 'hello-world'], 
 		}),
 		new CleanWebpackPlugin({
 			cleanOnceBeforeBuildPatterns: [
@@ -132,7 +146,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			//configure options for the webpack generated html file here
 			filename: 'hello-world.html',
-			chunks: ['hello-world', 'amiibo~hello-world'],
+			chunks: ['hello-world', 'vendors~amiibo~hello-world', 'vendors~hello-world'],
 			// the chunk property here notes which resources are going to be linked with this generated HTML page
 			// the properties come form the values that are set in the entry setting of this webpack config at the start
 			// You need 1. the index_two.js file that gets compiled from entry 'amiibo'
@@ -151,7 +165,7 @@ module.exports = {
 			//configure options for the webpack generated html file here
 			filename: 'amiibo.html',
 			title: 'Amiibo',
-			chunks: ['amiibo', 'amiibo~hello-world'], 
+			chunks: ['amiibo', 'vendors~amiibo~hello-world'], 
 			// the chunk property here notes which resources are going to be linked with this generated HTML page
 			// the properties come form the values that are set in the entry setting of this webpack config at the start
 			// You need 1. the index_two.js file that gets compiled from entry 'amiibo'

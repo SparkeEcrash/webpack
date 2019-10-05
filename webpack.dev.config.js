@@ -34,12 +34,6 @@ const path = require('path');
 // index.js
 // NOT NEEDED IN DEVELOPMENT MODE BECAUSE WE DO NOT WANT SEPARATE CSS FILES WHILE DEVELOPING
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// this is used to clean up the dist output folder in order to erase
-// cached files of previous builds which will be replaced by new ones
-// when updated files with a different [contenthash] code replaces the
-// older ones
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // this creates a new html file that will have proper links to the
 // css and javascript files that contain the most recent hash code 
@@ -126,12 +120,13 @@ module.exports = {
 		// 	filename: 'styles.css'
 		// }),
 				// *** not necessary because we do not want separate css files while developing
-		new CleanWebpackPlugin({
-			cleanOnceBeforeBuildPatterns: [
-				'**/*',	//this one line is the default setting
-				path.join(process.cwd(), 'build/**/*') //this will also clean up the build folder
-			]
-		}),
+		// new CleanWebpackPlugin({
+		// 	cleanOnceBeforeBuildPatterns: [
+		// 		'**/*',	//this one line is the default setting
+		// 		path.join(process.cwd(), 'build/**/*') //this will also clean up the build folder
+		// 	]
+		// }),
+				// *** not necessary if we are running webpack-dev-server
 		new HtmlWebpackPlugin({
 			//configure options for the webpack generated html file here
 			title: 'Hello world',
